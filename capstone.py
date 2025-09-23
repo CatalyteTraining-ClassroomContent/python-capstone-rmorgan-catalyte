@@ -1,17 +1,43 @@
-# Filter By Date Feature
 
-def filter_by_date(submissions: List[Dict[str, Any]], date: str) -> List[Dict[str, Any]]:
+def filter_by_date(submissions: list[dict[str, any]], submitted_date: str) -> list[dict[str, any]]:
     """
-    Returns all submissions with a submissionDate equal to the given date.
+    Filters submissions by provided submitted date.
+    Parameters:
+        submissions (list[dict[str, any]]): A list of submissions to filter.
+        submitted_date (str): The submission date to filter by.
+    Returns:
+        list[dict]: A the filtered submissions list.
     """
-    return [s for s in submissions if s.get("submissionDate") == date]
+
+    return [s for s in submissions if s.get("submissionDate") == submitted_date]
 
 
-# Filter By StudentId Feature
-
-def filter_by_student_id(submissions: List[Dict[str, Any]], student_id: int) -> List[Dict[str, Any]]:
+def filter_by_student_id(submissions: list[dict[str, any]], student_id: int) -> list[dict[str, any]]:
     """
-    Returns all submissions with a studentId equal to the given student_id.
+    Filter submissions by provided student id.
+
+    Parameters:
+        submissions (list[dict[str, any]]): _description_
+        student_id (int): _description_
+
+    Returns:
+        list[dict[str, any]]: _description_
     """
     return [s for s in submissions if s.get("studentId") == student_id]
+
+
+def find_unsubmitted(submitted_date: str, student_names: list[str], submissions: list[dict[str, any]]) -> list[str]:
+    """
+    Filter submissions by finding unsubmitted data
+
+    Parameters:
+        submitted_date (str): _description_
+        student_names (list[str]): _description_
+        submissions (list[dict[str, any]]): _description_
+
+    Returns:
+        list[str]: _description_
+    """
+    submitted = {s["studentName"] for s in submissions if s.get("submissionDate") == submitted_date}
+    return [name for name in student_names if name not in submitted]
 
