@@ -97,3 +97,27 @@ def get_average_score_by_module(submissions):
     """
     module_scores = {}
 
+    for s in submissions:
+        module = s["quizModule"]
+        score = s["quizScore"]
+
+        if module not in module_scores:
+            module_scores[module] = []
+
+        module_scores[module].append(score)
+
+    result = {}
+    for module in module_scores:
+        scores = module_scores[module]
+
+        total = 0
+        count = 0
+        for sc in scores:
+            total = total + sc
+            count = count + 1
+
+        avg = total / count
+        result[module] = round(avg, 1)
+
+    return result
+
